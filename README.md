@@ -1,30 +1,31 @@
-# Dog adoption site
+# Separated Projects
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+This codebase now contains two separate projects:
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/austin-ngugis-projects/v0-dog-adoption-site)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/OpnqrLefPBs)
+## 1. Cafe Website (`/cafe-website`)
+- Modern cafe website with online ordering
+- Shopping cart functionality
+- Payment integration (Card & M-Pesa)
+- Orange/warm color scheme
+- Features: Menu browsing, cart management, checkout
 
-## Overview
+## 2. Dog Adoption Site (`/dog-adoption`)
+- Dog adoption platform
+- Browse available dogs
+- Adoption process information
+- Rose/pink color scheme
+- Features: Dog profiles, adoption information, testimonials
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Project Structure
+\`\`\`
+├── cafe-website/
+│   ├── app/
+│   ├── components/
+│   └── hooks/
+└── dog-adoption/
+    ├── app/
+    ├── components/
+    └── data/
+\`\`\`
 
-## Deployment
-
-Your project is live at:
-
-**[https://vercel.com/austin-ngugis-projects/v0-dog-adoption-site](https://vercel.com/austin-ngugis-projects/v0-dog-adoption-site)**
-
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.app/chat/projects/OpnqrLefPBs](https://v0.app/chat/projects/OpnqrLefPBs)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Each project is now completely independent with its own styling, components, and functionality.

@@ -32,7 +32,7 @@ export function CartItems() {
 
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold text-foreground truncate">{item.name}</h3>
-                <p className="text-primary font-semibold">${item.price.toFixed(2)}</p>
+                <p className="text-primary font-semibold">KES {item.price.toFixed(0)}</p>
               </div>
 
               <div className="flex items-center gap-2">
@@ -58,7 +58,7 @@ export function CartItems() {
               </div>
 
               <div className="text-right min-w-[4rem]">
-                <p className="font-semibold text-primary">${(item.price * item.quantity).toFixed(2)}</p>
+                <p className="font-semibold text-primary">KES {(item.price * item.quantity).toFixed(0)}</p>
               </div>
 
               <Button

@@ -10,8 +10,8 @@ export function CartSummary() {
   const { items, getTotalPrice, getTotalItems, clearCart } = useCart()
 
   const subtotal = getTotalPrice()
-  const tax = subtotal * 0.08 // 8% tax
-  const deliveryFee = subtotal > 25 ? 0 : 3.99 // Free delivery over $25
+  const tax = subtotal * 0.16 // 16% VAT for Kenya
+  const deliveryFee = subtotal > 2000 ? 0 : 150 // Free delivery over 2000 KES, otherwise 150 KES
   const total = subtotal + tax + deliveryFee
 
   if (items.length === 0) {
@@ -28,23 +28,25 @@ export function CartSummary() {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>Subtotal ({getTotalItems()} items)</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>KES {subtotal.toFixed(0)}</span>
             </div>
 
             <div className="flex justify-between">
-              <span>Tax</span>
-              <span>${tax.toFixed(2)}</span>
+              <span>Tax (16% VAT)</span>
+              <span>KES {tax.toFixed(0)}</span>
             </div>
 
             <div className="flex justify-between">
               <span>Delivery Fee</span>
               <span>
-                {deliveryFee === 0 ? <span className="text-green-600">FREE</span> : `$${deliveryFee.toFixed(2)}`}
+                {deliveryFee === 0 ? <span className="text-green-600">FREE</span> : `KES ${deliveryFee.toFixed(0)}`}
               </span>
             </div>
 
-            {subtotal < 25 && deliveryFee > 0 && (
-              <p className="text-sm text-muted-foreground">Add ${(25 - subtotal).toFixed(2)} more for free delivery</p>
+            {subtotal < 2000 && deliveryFee > 0 && (
+              <p className="text-sm text-muted-foreground">
+                Add KES {(2000 - subtotal).toFixed(0)} more for free delivery
+              </p>
             )}
           </div>
 
@@ -52,7 +54,7 @@ export function CartSummary() {
 
           <div className="flex justify-between font-semibold text-lg">
             <span>Total</span>
-            <span className="text-primary">${total.toFixed(2)}</span>
+            <span className="text-primary">KES {total.toFixed(0)}</span>
           </div>
 
           <div className="space-y-2">

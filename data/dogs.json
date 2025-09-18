@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Simba",
+    "age": 5,
+    "gender": "Male",
+    "picture": "https://i.pinimg.com/236x/8e/10/d6/8e10d637064cbf7a839c21c57bf0a884.jpg"
+  },
+  {
+    "name": "Lily",
+    "age": 10,
+    "gender": "Female",
+    "picture": "https://i.pinimg.com/236x/24/bc/1b/24bc1b4f7fe377849b845c3182f47b4c.jpg"
+  },
+  {
+    "name": "Roxy",
+    "age": 10,
+    "gender": "Female",
+    "picture": "https://i.pinimg.com/236x/02/41/22/0241228fbda2846acac9d26eff4dadf7.jpg"
+  },
+  {
+    "name": "Rex",
+    "age": 7,
+    "gender": "Male",
+    "picture": "https://i.pinimg.com/236x/28/a0/16/28a016bd033d9f83cce0aa8bfb832fc7.jpg"
+  },
+  {
+    "name": "Tommy",
+    "age": 3,
+    "gender": "Male",
+    "picture": "https://i.pinimg.com/236x/ef/59/0d/ef590d3e2990e6827d96ad8ce55a755b.jpg"
+  },
+  {
+    "name": "Archer",
+    "age": 1,
+    "gender": "Male",
+    "picture": "https://i.pinimg.com/236x/78/0d/ee/780dee648db29c0cff66f23e7f67b68a.jpg"
+  },
+  {
+    "name": "Bella",
+    "age": 2,
+    "gender": "Female",
+    "picture": "https://i.pinimg.com/474x/c1/66/59/c16659a24bb4f4825397ad7e99d63b5e.jpg"
+  },
+  {
+    "name": "Harley",
+    "age": 2,
+    "gender": "Female",
+    "picture": "https://i.pinimg.com/236x/7b/89/86/7b8986b36c58c3b3f242cbc085fbf6c8.jpg"
+  },
+  {
+    "name": "Cosmo",
+    "age": 2,
+    "gender": "Male",
+    "picture": "https://i.pinimg.com/236x/2a/34/4e/2a344e85f5699b571b05083f89782497.jpg"
+  },
+  {
+    "name": "Siba",
+    "age": 5,
+    "gender": "Female",
+    "picture": "https://i.pinimg.com/236x/55/bd/23/55bd233e072fced4cc99e68f73b50d9a.jpg"
+  },
+  {
+    "name": "Queen",
+    "age": 3,
+    "gender": "Female",
+    "picture": "https://i.pinimg.com/236x/f6/68/03/f6680320fc3d65abe245f6e1d2dbfe7c.jpg"
+  },
+  {
+    "name": "Lucky",
+    "age": 4,
+    "gender": "Female",
+    "picture": "https://i.pinimg.com/236x/3c/2f/da/3c2fdae42b7e8036aa89e2424172004e.jpg"
+  }
+]

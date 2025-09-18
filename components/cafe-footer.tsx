@@ -17,9 +17,10 @@ export function CafeFooter() {
               Your neighborhood cafe serving exceptional coffee, fresh pastries, and warm hospitality since 2018.
             </p>
             <div className="text-sm text-muted-foreground">
-              <p>123 Coffee Street</p>
-              <p>Downtown, City 12345</p>
-              <p>Phone: (555) 123-4567</p>
+              <p>Kiambu, Tatu City near Ruiru</p>
+              <p>Kenya</p>
+              <p>Phone: 0112824050</p>
+              <p>Email: austinngugi000@gmail.com</p>
             </div>
           </div>
 

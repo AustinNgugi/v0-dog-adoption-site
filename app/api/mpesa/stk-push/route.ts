@@ -6,7 +6,11 @@ export async function POST(request: NextRequest) {
 
     console.log("[v0] STK Push request:", { phoneNumber, amount, orderId })
 
-    // Get access token
+    if (!phoneNumber || !amount) {
+      return NextResponse.json({ error: "phoneNumber and amount are required" }, { status: 400 })
+    }
+
+    // Get access token from our auth route
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
     const authResponse = await fetch(`${baseUrl}/api/mpesa/auth`)
 
@@ -16,7 +20,7 @@ export async function POST(request: NextRequest) {
     }
 
     const authData = await authResponse.json()
-    console.log("[v0] Auth data received:", { hasToken: !!authData.access_token, demoMode: authData.demo_mode })
+    console.log("[v0] Auth data received:", { hasToken: !!authData.access_token, env: authData.env })
 
     if (!authData.access_token) {
       return NextResponse.json({ error: "Failed to get M-Pesa access token" }, { status: 500 })
@@ -45,22 +49,36 @@ export async function POST(request: NextRequest) {
     // Generate password
     const password = Buffer.from(`${businessShortCode}${passkey}${timestamp}`).toString("base64")
 
+    const callbackHost = process.env.MPESA_CALLBACK_HOST || baseUrl
+    const callbackPath = process.env.MPESA_CALLBACK_PATH || "/api/mpesa/callback"
+
+    // Normalize phone: remove plus and ensure starts with 254
+    let normalizedPhone = String(phoneNumber).replace(/\s+/g, "")
+    if (normalizedPhone.startsWith("+")) normalizedPhone = normalizedPhone.substring(1)
+    if (normalizedPhone.startsWith("0")) normalizedPhone = "254" + normalizedPhone.substring(1)
+    if (!normalizedPhone.startsWith("254")) normalizedPhone = "254" + normalizedPhone
+
     const stkPushPayload = {
       BusinessShortCode: businessShortCode,
       Password: password,
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
       Amount: Math.round(amount),
-      PartyA: phoneNumber,
+      PartyA: normalizedPhone,
       PartyB: businessShortCode,
-      PhoneNumber: phoneNumber,
-      CallBackURL: `${baseUrl}/api/mpesa/callback`,
+      PhoneNumber: normalizedPhone,
+      CallBackURL: `${callbackHost.replace(/\/$/, "")}${callbackPath}`,
       AccountReference: `Sweeven-${orderId}`,
       TransactionDesc: "Payment for Sweeven Cafe order",
     }
 
-    console.log("[v0] Sending STK push to M-Pesa API")
-    const response = await fetch("https://sandbox-api.safaricom.co.ke/mpesa/stkpush/v1/processrequest", {
+    // Select host based on env
+    const env = process.env.MPESA_ENV === "production" ? "production" : "sandbox"
+    const host = env === "production" ? "https://api.safaricom.co.ke" : "https://sandbox-api.safaricom.co.ke"
+    const endpoint = `${host}/mpesa/stkpush/v1/processrequest`
+
+    console.log("[v0] Sending STK push to M-Pesa API", { endpoint })
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${authData.access_token}`,
@@ -74,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       console.error("[v0] STK Push error:", data)
-      return NextResponse.json({ error: "Failed to initiate M-Pesa payment" }, { status: 400 })
+      return NextResponse.json({ error: "Failed to initiate M-Pesa payment", details: data }, { status: 400 })
     }
 
     return NextResponse.json({

@@ -16,16 +16,18 @@ export async function GET() {
 
     const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64")
 
-    const response = await fetch(
-      "https://sandbox-api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Basic ${auth}`,
-          "Content-Type": "application/json",
-        },
+    // Use production endpoints when MPESA_ENV=production
+    const env = process.env.MPESA_ENV === "production" ? "production" : "sandbox"
+    const oauthHost = env === "production" ? "https://api.safaricom.co.ke" : "https://sandbox-api.safaricom.co.ke"
+    const oauthUrl = `${oauthHost}/oauth/v1/generate?grant_type=client_credentials`
+
+    const response = await fetch(oauthUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/json",
       },
-    )
+    })
 
     const data = await response.json()
 
@@ -34,7 +36,7 @@ export async function GET() {
       return NextResponse.json({ error: "Failed to authenticate with M-Pesa" }, { status: 400 })
     }
 
-    return NextResponse.json({ access_token: data.access_token })
+    return NextResponse.json({ access_token: data.access_token, env })
   } catch (error) {
     console.error("[v0] M-Pesa auth error:", error)
     return NextResponse.json({ error: "Authentication failed" }, { status: 500 })

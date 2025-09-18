@@ -4,8 +4,13 @@ export async function POST(request: NextRequest) {
   try {
     const { checkoutRequestId } = await request.json()
 
+    if (!checkoutRequestId) {
+      return NextResponse.json({ error: "checkoutRequestId is required" }, { status: 400 })
+    }
+
     // Get access token
-    const authResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/mpesa/auth`)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    const authResponse = await fetch(`${baseUrl}/api/mpesa/auth`)
     const authData = await authResponse.json()
 
     if (!authData.access_token) {
@@ -28,7 +33,11 @@ export async function POST(request: NextRequest) {
       CheckoutRequestID: checkoutRequestId,
     }
 
-    const response = await fetch("https://sandbox-api.safaricom.co.ke/mpesa/stkpushquery/v1/query", {
+    const env = process.env.MPESA_ENV === "production" ? "production" : "sandbox"
+    const host = env === "production" ? "https://api.safaricom.co.ke" : "https://sandbox-api.safaricom.co.ke"
+    const endpoint = `${host}/mpesa/stkpushquery/v1/query`
+
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${authData.access_token}`,

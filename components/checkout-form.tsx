@@ -57,22 +57,19 @@ export function CheckoutForm() {
       return
     }
 
-    let formattedPhone = formData.mpesaPhone.replace(/\s+/g, "") // Remove spaces
+  let formattedPhone = formData.mpesaPhone.replace(/\s+/g, "") // Remove spaces and separators
 
-    // Convert different formats to +254
-    if (formattedPhone.startsWith("0")) {
-      formattedPhone = "+254" + formattedPhone.substring(1)
-    } else if (formattedPhone.startsWith("254")) {
-      formattedPhone = "+" + formattedPhone
-    } else if (!formattedPhone.startsWith("+254")) {
-      formattedPhone = "+254" + formattedPhone
-    }
+  // Normalize to Daraja expected format: 2547XXXXXXXX (no plus)
+  if (formattedPhone.startsWith("+")) formattedPhone = formattedPhone.substring(1)
+  if (formattedPhone.startsWith("0")) formattedPhone = "254" + formattedPhone.substring(1)
+  if (!formattedPhone.startsWith("254")) formattedPhone = "254" + formattedPhone
 
     setMpesaPromptSent(true)
     setWaitingForPayment(true)
 
     try {
-      const total = getTotalPrice() + getTotalPrice() * 0.16 + (getTotalPrice() > 2000 ? 0 : 150)
+  const subtotal = getTotalPrice()
+  const total = subtotal + subtotal * 0.16 + (subtotal > 2000 ? 0 : 150)
       const orderId = `ORDER-${Date.now()}`
 
       const response = await fetch("/api/mpesa/stk-push", {

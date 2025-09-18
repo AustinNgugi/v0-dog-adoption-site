@@ -1,8 +1,8 @@
-import { CafeNavbar } from "@/cafe-website/components/cafe-navbar"
-import { CafeHero } from "@/cafe-website/components/cafe-hero"
-import { FeaturedItems } from "@/cafe-website/components/featured-items"
-import { AboutSection } from "@/cafe-website/components/about-section"
-import { CafeFooter } from "@/cafe-website/components/cafe-footer"
+import { CafeNavbar } from "@/components/cafe-navbar"
+import { CafeHero } from "@/components/cafe-hero"
+import { FeaturedItems } from "@/components/featured-items"
+import { AboutSection } from "@/components/about-section"
+import { CafeFooter } from "@/components/cafe-footer"
 
 export default function CafeHomePage() {
   return (

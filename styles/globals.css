@@ -123,3 +123,99 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Responsive helpers */
+:root {
+  --container-max: 1200px;
+}
+
+/* make .container more fluid on small screens */
+.container {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+/* Fluid typography for hero */
+.hero-section h1 {
+  font-size: clamp(1.6rem, 4vw + 1rem, 3.75rem);
+}
+
+.hero-section p {
+  font-size: clamp(0.95rem, 2.2vw + 0.2rem, 1.25rem);
+}
+
+/* cart badge */
+.cart-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--color-destructive);
+  color: white;
+  border-radius: 9999px;
+  padding: 0.125rem 0.4rem;
+  line-height: 1;
+}
+
+/* small-screen utilities */
+@media (max-width: 640px) {
+  .cafe-navbar .h-16 {
+    height: 56px;
+  }
+
+  .cafe-navbar .text-xl {
+    font-size: 1rem;
+  }
+
+  .btn-order,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
+/* touch-friendly spacing */
+button, a[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Card image responsive heights */
+.cafe-card img {
+  height: 12rem; /* default for cards */
+}
+
+@media (max-width: 640px) {
+  .cafe-card img {
+    height: 10rem;
+  }
+  .cafe-card .p-4 {
+    padding: 0.75rem;
+  }
+}

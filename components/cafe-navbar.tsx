@@ -44,7 +44,11 @@ export function CafeNavbar() {
             <Link href="/cart" className="relative">
               <Button variant="ghost" size="icon" className="h-11 w-11 sm:h-9 sm:w-9">
                 <ShoppingCart className="h-6 w-6 sm:h-5 sm:w-5" />
-                {totalItems > 0 && <span className="cart-badge text-xs font-bold">{totalItems}</span>}
+                {totalItems > 0 && (
+                  <span className="cart-badge text-xs font-bold" aria-hidden>
+                    {totalItems}
+                  </span>
+                )}
               </Button>
             </Link>
 
@@ -54,6 +58,8 @@ export function CafeNavbar() {
               size="icon"
               className="md:hidden h-11 w-11"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>

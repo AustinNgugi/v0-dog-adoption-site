@@ -125,10 +125,10 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
       </div>
 
       <nav className="flex flex-col gap-3">
-        <Link href="/" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">Home</Link>
-        <Link href="/menu" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">Menu</Link>
-        <Link href="/about" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">About</Link>
-        <Link href="/contact" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">Contact</Link>
+        <Link href="/" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Home</Link>
+        <Link href="/menu" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Menu</Link>
+        <Link href="/about" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">About</Link>
+        <Link href="/contact" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Contact</Link>
       </nav>
 
       <div className="mt-auto">

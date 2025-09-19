@@ -71,7 +71,7 @@ export function CafeNavbar() {
           <div
             role="dialog"
             aria-modal="true"
-            className={`absolute right-0 top-0 h-full w-72 bg-white/95 backdrop-blur-md shadow-xl transform transition-transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+            className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform transition-transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
           >
             <MobileMenuContent onClose={() => setIsMenuOpen(false)} />
           </div>
@@ -125,10 +125,10 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
       </div>
 
       <nav className="flex flex-col gap-3">
-        <Link href="/" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">Home</Link>
-        <Link href="/menu" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">Menu</Link>
-        <Link href="/about" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">About</Link>
-        <Link href="/contact" onClick={onClose} className="py-3 px-2 rounded-md hover:bg-amber-50">Contact</Link>
+        <Link href="/" className="py-3 px-2 rounded-md hover:bg-amber-50">Home</Link>
+        <Link href="/menu" className="py-3 px-2 rounded-md hover:bg-amber-50">Menu</Link>
+        <Link href="/about" className="py-3 px-2 rounded-md hover:bg-amber-50">About</Link>
+        <Link href="/contact" className="py-3 px-2 rounded-md hover:bg-amber-50">Contact</Link>
       </nav>
 
       <div className="mt-auto">

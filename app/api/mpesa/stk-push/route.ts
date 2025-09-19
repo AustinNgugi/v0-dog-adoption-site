@@ -10,23 +10,61 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "phoneNumber and amount are required" }, { status: 400 })
     }
 
-    // Get access token from our auth route
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-    const authResponse = await fetch(`${baseUrl}/api/mpesa/auth`)
+  // Base URL used for fallback auth route and callback defaults
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
 
-    if (!authResponse.ok) {
-      console.error("[v0] Auth response not ok:", authResponse.status)
-      return NextResponse.json({ error: "Failed to get M-Pesa access token" }, { status: 500 })
+  // Get access token: prefer direct Daraja OAuth using env creds to avoid depending on a baseUrl fetch
+    let accessToken: string | undefined = undefined
+    let authEnv: string | undefined = undefined
+
+    const consumerKey = process.env.MPESA_CONSUMER_KEY
+    const consumerSecret = process.env.MPESA_CONSUMER_SECRET
+
+    if (consumerKey && consumerSecret) {
+      try {
+        const env = process.env.MPESA_ENV === "production" ? "production" : "sandbox"
+        authEnv = env
+        const oauthHost = env === "production" ? "https://api.safaricom.co.ke" : "https://sandbox-api.safaricom.co.ke"
+        const oauthUrl = `${oauthHost}/oauth/v1/generate?grant_type=client_credentials`
+        const basic = Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64")
+
+        const authResponse = await fetch(oauthUrl, {
+          method: "GET",
+          headers: {
+            Authorization: `Basic ${basic}`,
+            "Content-Type": "application/json",
+          },
+        })
+
+        const authData = await authResponse.json()
+        if (!authResponse.ok || !authData.access_token) {
+          console.error("[v0] Direct Daraja auth failed:", authData)
+        } else {
+          accessToken = authData.access_token
+        }
+      } catch (err) {
+        console.error("[v0] Direct Daraja auth error:", err)
+      }
     }
 
-    const authData = await authResponse.json()
-    console.log("[v0] Auth data received:", { hasToken: !!authData.access_token, env: authData.env })
+    // Fallback to internal auth route if direct OAuth wasn't used or failed
+    if (!accessToken) {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+      const authResponse = await fetch(`${baseUrl}/api/mpesa/auth`)
 
-    if (!authData.access_token) {
-      return NextResponse.json({ error: "Failed to get M-Pesa access token" }, { status: 500 })
-    }
+      if (!authResponse.ok) {
+        console.error("[v0] Auth response not ok:", authResponse.status)
+        return NextResponse.json({ error: "Failed to get M-Pesa access token" }, { status: 500 })
+      }
 
-    if (authData.demo_mode) {
+      const authData = await authResponse.json()
+      console.log("[v0] Auth data received:", { hasToken: !!authData.access_token, env: authData.env })
+
+      if (!authData.access_token) {
+        return NextResponse.json({ error: "Failed to get M-Pesa access token" }, { status: 500 })
+      }
+
+      if (authData.demo_mode) {
       console.log("[v0] Running in demo mode - simulating STK push")
       // Simulate successful STK push for demo
       return NextResponse.json({
@@ -37,7 +75,8 @@ export async function POST(request: NextRequest) {
         responseDescription: "Success. Request accepted for processing",
         demo_mode: true,
       })
-    }
+  }
+  }
 
     const timestamp = new Date()
       .toISOString()
@@ -73,15 +112,26 @@ export async function POST(request: NextRequest) {
     }
 
     // Select host based on env
-    const env = process.env.MPESA_ENV === "production" ? "production" : "sandbox"
-    const host = env === "production" ? "https://api.safaricom.co.ke" : "https://sandbox-api.safaricom.co.ke"
+  const env = authEnv ?? (process.env.MPESA_ENV === "production" ? "production" : "sandbox")
+  const host = env === "production" ? "https://api.safaricom.co.ke" : "https://sandbox-api.safaricom.co.ke"
     const endpoint = `${host}/mpesa/stkpush/v1/processrequest`
 
-    console.log("[v0] Sending STK push to M-Pesa API", { endpoint })
+    // Log outgoing request for debugging (mask token)
+    const maskedToken = accessToken ? `${accessToken.slice(0, 6)}...${accessToken.slice(-6)}` : null
+    const outgoingHeaders = {
+      Authorization: accessToken ? `Bearer ${maskedToken}` : undefined,
+      "Content-Type": "application/json",
+    }
+    console.log("[v0] Outgoing STK request:", {
+      endpoint,
+      headers: outgoingHeaders,
+      payload: stkPushPayload,
+    })
+
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${authData.access_token}`,
+        Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(stkPushPayload),

@@ -83,15 +83,15 @@ export function CafeNavbar() {
   <div aria-hidden={!isMenuOpen} className={`fixed inset-0 z-50 md:hidden ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
           {/* backdrop */}
           <div
-            className={`absolute inset-0 bg-black/30 transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0'} z-10`}
+            className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0'} z-20`}
             onClick={() => setIsMenuOpen(false)}
           />
 
-          {/* drawer */}
+          {/* left sliding prominent sidebar */}
           <div
             role="dialog"
             aria-modal="true"
-            className={`absolute right-0 top-0 h-full w-[320px] bg-white shadow-xl p-4 overflow-auto ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'} transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-60 transition-transform duration-300 ease-in-out will-change-transform`}
+            className={`absolute left-0 top-0 h-full w-full sm:w-[380px] bg-white shadow-2xl p-6 overflow-auto ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'} transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} z-30 transition-transform duration-300 ease-in-out will-change-transform`}
             style={{ touchAction: 'manipulation' }}
           >
             <MobileMenuContent onClose={() => setIsMenuOpen(false)} />
@@ -133,46 +133,46 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
   }, [onClose])
 
   return (
-    <div ref={containerRef} className="h-full p-6 flex flex-col bg-white overflow-auto">
+    <div ref={containerRef} className="h-full p-4 flex flex-col bg-white overflow-auto">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold">S</div>
+          <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-lg">S</div>
           <div>
-            <div className="font-bold">Sweeven</div>
-            <div className="text-xs text-muted-foreground">Artisan Coffee</div>
+            <div className="font-extrabold text-lg">Sweeven</div>
+            <div className="text-sm text-amber-700 -mt-0.5">Artisan Coffee</div>
           </div>
         </div>
-        <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close menu"><X className="h-5 w-5" /></Button>
+        <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close menu"><X className="h-6 w-6 text-amber-900" /></Button>
       </div>
 
       <div className="w-full">
-          <div className="bg-white rounded-lg p-2 shadow-sm">
-            <nav className="flex flex-col gap-2">
-              <Link href="/" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
-                <Home className="w-5 h-5 text-amber-600 mr-3" />
-                Home
-              </Link>
-              <Link href="/menu" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
-                <Coffee className="w-5 h-5 text-amber-600 mr-3" />
-                Menu
-              </Link>
-              <Link href="/about" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
-                <Info className="w-5 h-5 text-amber-600 mr-3" />
-                About
-              </Link>
-              <Link href="/contact" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
-                <Mail className="w-5 h-5 text-amber-600 mr-3" />
-                Contact
-              </Link>
-            </nav>
-          </div>
+        <div className="divide-y divide-amber-100 bg-transparent">
+          <nav className="flex flex-col gap-0">
+            <Link href="/" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+              <Home className="w-6 h-6 text-amber-600" />
+              <span>Home</span>
+            </Link>
+            <Link href="/menu" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+              <Coffee className="w-6 h-6 text-amber-600" />
+              <span>Menu</span>
+            </Link>
+            <Link href="/about" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+              <Info className="w-6 h-6 text-amber-600" />
+              <span>About</span>
+            </Link>
+            <Link href="/contact" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+              <Mail className="w-6 h-6 text-amber-600" />
+              <span>Contact</span>
+            </Link>
+          </nav>
 
-          <div className="mt-4">
-            <Link href="/menu" className="flex items-center justify-center gap-2 w-full text-center px-4 py-2 rounded bg-amber-600 text-white">
-              <ShoppingCart className="w-4 h-4" />
+          <div className="px-4 py-5">
+            <Link href="/menu" onClick={() => onClose()} className="flex items-center justify-center gap-2 w-full text-center px-4 py-3 rounded bg-amber-600 text-white font-semibold">
+              <ShoppingCart className="w-5 h-5" />
               Order Now
             </Link>
           </div>
+        </div>
       </div>
     </div>
   )

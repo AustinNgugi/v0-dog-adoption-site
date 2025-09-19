@@ -63,7 +63,7 @@ export function CafeNavbar() {
   {/* aria-live region for screen reader announcements */}
   <div className="sr-only" aria-live="polite">{isMenuOpen ? 'Menu opened' : ''}</div>
 
-  <div aria-hidden={!isMenuOpen} className={`fixed inset-0 z-40 md:hidden ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+  <div aria-hidden={!isMenuOpen} className={`fixed inset-0 z-50 md:hidden ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
           {/* backdrop */}
           <div
             className={`absolute inset-0 bg-black/30 transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0'} z-10`}
@@ -74,7 +74,7 @@ export function CafeNavbar() {
           <div
             role="dialog"
             aria-modal="true"
-            className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-20 transition-transform duration-300 ease-in-out will-change-transform`}
+            className={`absolute right-0 top-0 h-full w-[320px] bg-white shadow-xl p-4 overflow-auto ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'} transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-60 transition-transform duration-300 ease-in-out will-change-transform`}
             style={{ touchAction: 'manipulation' }}
           >
             <MobileMenuContent onClose={() => setIsMenuOpen(false)} />
@@ -131,19 +131,19 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
       <div className="w-full">
           <div className="bg-white rounded-lg p-2 shadow-sm">
             <nav className="flex flex-col gap-2">
-              <Link href="/" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+              <Link href="/" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
                 <Home className="w-5 h-5 text-amber-600 mr-3" />
                 Home
               </Link>
-              <Link href="/menu" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+              <Link href="/menu" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
                 <Coffee className="w-5 h-5 text-amber-600 mr-3" />
                 Menu
               </Link>
-              <Link href="/about" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+              <Link href="/about" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
                 <Info className="w-5 h-5 text-amber-600 mr-3" />
                 About
               </Link>
-              <Link href="/contact" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+              <Link href="/contact" onClick={() => onClose()} className="block py-4 px-4 rounded-md hover:bg-amber-50 bg-white flex items-center text-lg font-medium text-amber-900">
                 <Mail className="w-5 h-5 text-amber-600 mr-3" />
                 Contact
               </Link>

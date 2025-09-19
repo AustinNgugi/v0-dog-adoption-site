@@ -57,18 +57,20 @@ export default function AboutPage() {
             speed={0.56}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
-            <div className="text-center p-6 max-w-4xl">
-              <h1 className="text-5xl md:text-6xl font-extrabold text-amber-900 drop-shadow">Our Roots, Your Cup</h1>
-              <p className="mt-6 text-lg md:text-xl text-amber-800 leading-relaxed">
-                From a small kettle and a big hope, Sweeven began as a place for neighbors to gather and for stories to
-                unfold. Every bag of beans carries the hands that grew it, the early morning chats that shaped our
-                menu, and the quiet moments that remind us why we do this: to create a space where people feel seen.
-              </p>
-              <p className="mt-4 text-md text-amber-800/90 max-w-2xl mx-auto">We roast a little slower, listen a little longer, and pour every cup with intention. Come for the coffee; stay for the conversation.</p>
-              <div className="mt-8 flex justify-center gap-4">
-                <button className="px-5 py-2 rounded bg-amber-600 text-white shadow-md hover:bg-amber-700 transition" onClick={() => parallax.current?.scrollTo(1)}>Read the story</button>
-                <Link href="/menu" className="px-5 py-2 rounded border border-amber-300 hover:bg-amber-50 transition">See menu</Link>
-                <Link href="/contact" className="px-5 py-2 rounded bg-white/80 border">Visit us</Link>
+            <div className="p-6 max-w-4xl">
+              <div className="mx-auto bg-white/90 dark:bg-neutral-900/85 text-amber-900 rounded-2xl p-8 shadow-lg">
+                <h1 className="text-5xl md:text-6xl font-extrabold text-amber-900">Our Roots, Your Cup</h1>
+                <p className="mt-6 text-lg md:text-xl text-amber-800 leading-relaxed">
+                  From a small kettle and a big hope, Sweeven began as a place for neighbors to gather and for stories to
+                  unfold. Every bag of beans carries the hands that grew it, the early morning chats that shaped our
+                  menu, and the quiet moments that remind us why we do this: to create a space where people feel seen.
+                </p>
+                <p className="mt-4 text-md text-amber-800/90 max-w-2xl mx-auto">We roast a little slower, listen a little longer, and pour every cup with intention. Come for the coffee; stay for the conversation.</p>
+                <div className="mt-8 flex justify-center gap-4">
+                  <button className="px-5 py-2 rounded bg-amber-600 text-white shadow-md hover:bg-amber-700 transition" onClick={() => parallax.current?.scrollTo(1)}>Read the story</button>
+                  <Link href="/menu" className="px-5 py-2 rounded border border-amber-300 hover:bg-amber-50 transition">See menu</Link>
+                  <Link href="/contact" className="px-5 py-2 rounded bg-white/80 border">Visit us</Link>
+                </div>
               </div>
             </div>
           </ParallaxLayer>

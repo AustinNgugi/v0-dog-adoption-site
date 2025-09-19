@@ -59,11 +59,14 @@ export function CafeNavbar() {
           </div>
         </div>
 
-        {/* Mobile Drawer Navigation */}
-    <div aria-hidden={!isMenuOpen} className={`fixed inset-0 z-40 md:hidden ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+  {/* Mobile Drawer Navigation */}
+  {/* aria-live region for screen reader announcements */}
+  <div className="sr-only" aria-live="polite">{isMenuOpen ? 'Menu opened' : ''}</div>
+
+  <div aria-hidden={!isMenuOpen} className={`fixed inset-0 z-40 md:hidden ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
           {/* backdrop */}
           <div
-      className={`absolute inset-0 bg-black/30 transition-opacity ${isMenuOpen ? 'opacity-100' : 'opacity-0'} z-10`}
+            className={`absolute inset-0 bg-black/30 transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0'} z-10`}
             onClick={() => setIsMenuOpen(false)}
           />
 
@@ -71,7 +74,8 @@ export function CafeNavbar() {
           <div
             role="dialog"
             aria-modal="true"
-      className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform transition-transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-20`}
+            className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-20 transition-transform duration-300 ease-in-out will-change-transform`}
+            style={{ touchAction: 'manipulation' }}
           >
             <MobileMenuContent onClose={() => setIsMenuOpen(false)} />
           </div>

@@ -60,10 +60,10 @@ export function CafeNavbar() {
         </div>
 
         {/* Mobile Drawer Navigation */}
-        <div aria-hidden={!isMenuOpen} className={`fixed inset-0 z-40 md:hidden pointer-events-none ${isMenuOpen ? 'pointer-events-auto' : ''}`}>
+    <div aria-hidden={!isMenuOpen} className={`fixed inset-0 z-40 md:hidden ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
           {/* backdrop */}
           <div
-            className={`absolute inset-0 bg-black/30 transition-opacity ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+      className={`absolute inset-0 bg-black/30 transition-opacity ${isMenuOpen ? 'opacity-100' : 'opacity-0'} z-10`}
             onClick={() => setIsMenuOpen(false)}
           />
 
@@ -71,7 +71,7 @@ export function CafeNavbar() {
           <div
             role="dialog"
             aria-modal="true"
-            className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform transition-transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform transition-transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} z-20`}
           >
             <MobileMenuContent onClose={() => setIsMenuOpen(false)} />
           </div>

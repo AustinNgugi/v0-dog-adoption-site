@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import { useRouter } from 'next/navigation'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Menu, X } from "lucide-react"
@@ -10,6 +11,7 @@ export function CafeNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { getTotalItems } = useCart()
   const totalItems = getTotalItems()
+  const router = useRouter()
 
   return (
     <nav className="cafe-navbar sticky top-0 z-50 backdrop-blur-sm bg-white/60 border-b border-border">
@@ -83,6 +85,7 @@ export function CafeNavbar() {
 
 function MobileMenuContent({ onClose }: { onClose: () => void }) {
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const el = containerRef.current
@@ -124,12 +127,13 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
         <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close menu"><X className="h-5 w-5" /></Button>
       </div>
 
-      <nav className="flex flex-col gap-3">
-        <Link href="/" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Home</Link>
-        <Link href="/menu" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Menu</Link>
-        <Link href="/about" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">About</Link>
-        <Link href="/contact" onClick={() => onClose()} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Contact</Link>
-      </nav>
+      <div className="flex flex-col gap-3">
+        {/* use router.push to guarantee navigation when closing the drawer */}
+        <a href="/" onClick={(e) => { e.preventDefault(); router.push('/'); onClose(); }} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Home</a>
+        <a href="/menu" onClick={(e) => { e.preventDefault(); router.push('/menu'); onClose(); }} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Menu</a>
+        <a href="/about" onClick={(e) => { e.preventDefault(); router.push('/about'); onClose(); }} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">About</a>
+        <a href="/contact" onClick={(e) => { e.preventDefault(); router.push('/contact'); onClose(); }} className="block w-full py-3 px-4 bg-white text-amber-900 rounded-md">Contact</a>
+      </div>
 
       <div className="mt-auto">
         <Link href="/menu" className="block w-full text-center px-4 py-2 rounded bg-amber-600 text-white">Order Now</Link>

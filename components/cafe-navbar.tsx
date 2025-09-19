@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ShoppingCart, Menu, X, Home, Coffee, Info, Mail } from "lucide-react"
+import { ShoppingCart, Menu, X, Home, Coffee, Info, Mail, Search, User } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
 
 export function CafeNavbar() {
@@ -12,49 +12,66 @@ export function CafeNavbar() {
   const totalItems = getTotalItems()
 
   return (
-    <nav className="cafe-navbar sticky top-0 z-50 backdrop-blur-sm bg-white/60 border-b border-border">
+    <nav className="cafe-navbar sticky top-0 z-50 bg-[#FFD400] border-b border-amber-300">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-amber-400 rounded-full flex items-center justify-center shadow-md">
-              <span className="text-white font-extrabold text-sm">S</span>
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold text-foreground">Sweeven</span>
-              <span className="text-xs text-muted-foreground -mt-0.5">Artisan Coffee</span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-foreground hover:text-amber-600 transition-colors px-3 py-2 rounded-md hover:bg-amber-50">Home</Link>
-            <Link href="/menu" className="text-foreground hover:text-amber-600 transition-colors px-3 py-2 rounded-md hover:bg-amber-50">Menu</Link>
-            <Link href="/about" className="text-foreground hover:text-amber-600 transition-colors px-3 py-2 rounded-md hover:bg-amber-50">About</Link>
-            <Link href="/contact" className="text-foreground hover:text-amber-600 transition-colors px-3 py-2 rounded-md hover:bg-amber-50">Contact</Link>
+        <div className="flex items-center h-16">
+          {/* Left: Logo + Name */}
+          <div className="flex items-center gap-3 mr-4">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+                <span className="text-amber-600 font-extrabold">S</span>
+              </div>
+              <div className="hidden sm:flex flex-col leading-tight">
+                <span className="text-lg font-bold text-amber-900">Sweeven</span>
+                <span className="text-xs text-amber-800 -mt-0.5">Artisan Coffee</span>
+              </div>
+            </Link>
           </div>
 
-          {/* Cart and Mobile Menu */}
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Center: Search (desktop) */}
+          <div className="hidden md:flex flex-1 justify-center px-4">
+            <div className="w-full max-w-xl">
+              <div className="flex items-center bg-white rounded-full px-3 py-2 shadow-sm">
+                <Search className="w-5 h-5 text-amber-600 mr-2" />
+                <input
+                  aria-label="Search"
+                  placeholder="Search menu, dogs or items"
+                  className="w-full outline-none text-sm text-amber-900 bg-transparent"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right: actions */}
+          <div className="ml-auto flex items-center gap-2 sm:gap-4">
             <Link href="/cart" className="relative">
-              <Button variant="ghost" size="icon" className="h-11 w-11 sm:h-9 sm:w-9">
-                <ShoppingCart className="h-6 w-6 sm:h-5 sm:w-5" />
+              <Button variant="ghost" size="icon" className="h-11 w-11">
+                <ShoppingCart className="h-6 w-6" />
                 {totalItems > 0 && (
                   <span className="cart-badge text-xs font-bold bg-amber-600 text-white rounded-full px-2 py-0.5 absolute -top-1 -right-1">{totalItems}</span>
                 )}
               </Button>
             </Link>
 
+            <Button variant="ghost" size="icon" className="hidden sm:inline-flex h-11 w-11">
+              <User className="h-6 w-6 text-amber-900" />
+            </Button>
+
+            {/* Search icon on mobile */}
+            <Button variant="ghost" size="icon" className="md:hidden h-11 w-11">
+              <Search className="h-6 w-6 text-amber-900" />
+            </Button>
+
             {/* Mobile menu button */}
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden h-11 w-11"
+              className="h-11 w-11"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-expanded={isMenuOpen}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="h-6 w-6 text-amber-900" /> : <Menu className="h-6 w-6 text-amber-900" />}
             </Button>
           </div>
         </div>

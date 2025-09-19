@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ShoppingCart, Menu, X } from "lucide-react"
+import { ShoppingCart, Menu, X, Home, Coffee, Info, Mail } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
 
 export function CafeNavbar() {
@@ -116,7 +116,7 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
   }, [onClose])
 
   return (
-    <div ref={containerRef} className="h-full p-6 flex flex-col">
+    <div ref={containerRef} className="h-full p-6 flex flex-col bg-white overflow-auto">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold">S</div>
@@ -129,18 +129,33 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
       </div>
 
       <div className="w-full">
-        <div className="bg-white rounded-lg p-2 shadow-sm">
-          <nav className="flex flex-col gap-2">
-            <Link href="/" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">Home</Link>
-            <Link href="/menu" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">Menu</Link>
-            <Link href="/about" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">About</Link>
-            <Link href="/contact" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">Contact</Link>
-          </nav>
-        </div>
+          <div className="bg-white rounded-lg p-2 shadow-sm">
+            <nav className="flex flex-col gap-2">
+              <Link href="/" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+                <Home className="w-5 h-5 text-amber-600 mr-3" />
+                Home
+              </Link>
+              <Link href="/menu" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+                <Coffee className="w-5 h-5 text-amber-600 mr-3" />
+                Menu
+              </Link>
+              <Link href="/about" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+                <Info className="w-5 h-5 text-amber-600 mr-3" />
+                About
+              </Link>
+              <Link href="/contact" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white flex items-center">
+                <Mail className="w-5 h-5 text-amber-600 mr-3" />
+                Contact
+              </Link>
+            </nav>
+          </div>
 
-        <div className="mt-4">
-          <Link href="/menu" className="block w-full text-center px-4 py-2 rounded bg-amber-600 text-white">Order Now</Link>
-        </div>
+          <div className="mt-4">
+            <Link href="/menu" className="flex items-center justify-center gap-2 w-full text-center px-4 py-2 rounded bg-amber-600 text-white">
+              <ShoppingCart className="w-4 h-4" />
+              Order Now
+            </Link>
+          </div>
       </div>
     </div>
   )

@@ -148,19 +148,31 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
       <div className="w-full">
         <div className="divide-y divide-amber-100 bg-transparent">
           <nav className="flex flex-col gap-0">
-            <Link href="/" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+            <Link href="/" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 bg-white text-lg font-semibold text-amber-900">
               <Home className="w-6 h-6 text-amber-600" />
               <span>Home</span>
             </Link>
-            <Link href="/menu" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+            <Link href="/menu" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 bg-white text-lg font-semibold text-amber-900">
               <Coffee className="w-6 h-6 text-amber-600" />
               <span>Menu</span>
             </Link>
-            <Link href="/about" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+            <Link href="/about" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 bg-white text-lg font-semibold text-amber-900">
               <Info className="w-6 h-6 text-amber-600" />
               <span>About</span>
             </Link>
-            <Link href="/contact" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 hover:bg-amber-50 text-lg font-semibold text-amber-900">
+            <Link href="/parallax" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 bg-white text-lg font-semibold text-amber-900">
+              <Coffee className="w-6 h-6 text-amber-600" />
+              <span>Parallax</span>
+            </Link>
+            <Link href="/cart" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 bg-white text-lg font-semibold text-amber-900">
+              <ShoppingCart className="w-6 h-6 text-amber-600" />
+              <span>Cart</span>
+            </Link>
+            <Link href="/checkout" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 bg-white text-lg font-semibold text-amber-900">
+              <ShoppingCart className="w-6 h-6 text-amber-600" />
+              <span>Checkout</span>
+            </Link>
+            <Link href="/contact" onClick={() => onClose()} className="flex items-center gap-3 px-4 py-5 bg-white text-lg font-semibold text-amber-900">
               <Mail className="w-6 h-6 text-amber-600" />
               <span>Contact</span>
             </Link>

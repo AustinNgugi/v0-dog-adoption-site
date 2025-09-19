@@ -128,15 +128,19 @@ function MobileMenuContent({ onClose }: { onClose: () => void }) {
         <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close menu"><X className="h-5 w-5" /></Button>
       </div>
 
-      <nav className="flex flex-col gap-3">
-        <Link href="/" className="py-3 px-2 rounded-md hover:bg-amber-50">Home</Link>
-        <Link href="/menu" className="py-3 px-2 rounded-md hover:bg-amber-50">Menu</Link>
-        <Link href="/about" className="py-3 px-2 rounded-md hover:bg-amber-50">About</Link>
-        <Link href="/contact" className="py-3 px-2 rounded-md hover:bg-amber-50">Contact</Link>
-      </nav>
+      <div className="w-full">
+        <div className="bg-white rounded-lg p-2 shadow-sm">
+          <nav className="flex flex-col gap-2">
+            <Link href="/" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">Home</Link>
+            <Link href="/menu" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">Menu</Link>
+            <Link href="/about" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">About</Link>
+            <Link href="/contact" className="block py-3 px-3 rounded-md hover:bg-amber-50 bg-white">Contact</Link>
+          </nav>
+        </div>
 
-      <div className="mt-auto">
-        <Link href="/menu" className="block w-full text-center px-4 py-2 rounded bg-amber-600 text-white">Order Now</Link>
+        <div className="mt-4">
+          <Link href="/menu" className="block w-full text-center px-4 py-2 rounded bg-amber-600 text-white">Order Now</Link>
+        </div>
       </div>
     </div>
   )
